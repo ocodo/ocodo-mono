@@ -11,24 +11,15 @@ a monospaced font based on DIN
 
 - **Inspired by:** FF DIN
 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.5/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/">Creative Commons Attribution-NonCommercial 2.5 Generic License</a>.
+
 **OcodoMono** is best suited for users who have a penchant for extreme dark mode aesthetics and value the minimalist elegance of an ultra-thin monospaced font. 
 
 Delicacy meets practical functionality. It shines when used in coding environments, text editors, terminal applications, and UI elements in designs that embrace a stark contrast between elements.
 
 ## Download
 
-[Directly from here...](OcodoMono.ttf)
-
-<h3>Please consider making donation</h3>
-<form action="https://www.paypal.com/donate" method="post" target="_top">
-<input type="hidden" name="business" value="jasonm23@gmail.com">
-<input type="hidden" name="no_recurring" value="0">
-<input type="hidden" name="item_name" value="Support OcodoMono development">
-<input type="hidden" name="item_number" value="OcodoMono needs your support">
-<input type="hidden" name="currency_code" value="USD">
-<input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate">
-<img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
-</form>
+[Download Directly from here...](OcodoMono.ttf)
 
 ## Planned variant: ultrathin.
 
