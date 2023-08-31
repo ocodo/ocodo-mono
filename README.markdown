@@ -1,4 +1,4 @@
-![](ocodo-mono.png)
+![](images/ocodo-mono.png)
 
 a monospaced font based on DIN
 
@@ -23,15 +23,12 @@ Serif reduction is the maxim.
 
 [Download Directly from here...](OcodoMono.ttf)
 
-## Planned variant: ultrathin.
-
 ## Type Demos
 
-![](rusty.png)
+![](images/rusty.png)
 
+![](images/py.png)
 
-![](py.png)
+![](images/type-demo.png)
 
-![](type-demo.png)
-
-
+## Planned variant: ultrathin
