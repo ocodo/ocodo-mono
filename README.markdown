@@ -30,7 +30,7 @@ Serif reduction is the maxim.
 ![](images/light-lipsum.png)
 
 ![](images/type-demo.png)
-
+  
 ## Planned variant: ultrathin
 
 # Download
