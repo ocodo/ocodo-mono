@@ -19,10 +19,6 @@ Delicacy meets practical functionality. It shines when used in coding environmen
 
 Serif reduction is the maxim.
 
-## Download
-
-[Download Directly from here...](OcodoMono.ttf)
-
 ## Type Demos
 
 ![](images/rusty.png)
@@ -32,3 +28,7 @@ Serif reduction is the maxim.
 ![](images/type-demo.png)
 
 ## Planned variant: ultrathin
+
+# Download
+
+[Download Directly...](font/OcodoMono.ttf)
