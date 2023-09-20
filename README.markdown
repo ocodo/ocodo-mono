@@ -3,8 +3,7 @@
 a monospaced font based on DIN
 
 - **Weight:** 
-  - aesthetic: XThin 
-  - css: medium
+  - : thin 
   
 - **Font Name:** 
   - OcodoMono
