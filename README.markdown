@@ -6,7 +6,7 @@ a monospaced font based on DIN
   - : thin 
   
 - **Font Name:** 
-  - OcodoMono
+  - OcodoMono (Nerd font version also in fonts folder)
 
 - **Inspired by:** FF DIN
 
