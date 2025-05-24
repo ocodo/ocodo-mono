@@ -1,9 +1,9 @@
 ![](images/ocodo-mono.png)
 
-a monospaced font based on DIN
+an ultrathin monospaced font based on DIN
 
 - **Weight:**
-  - : thin
+  - : regular (appearance is ultrathin)
 
 - **Font Name:**
   - OcodoMono (Nerd font version also in fonts folder)
