@@ -1,10 +1,10 @@
 SplineFontDB: 3.2
-FontName: OcodoMono-Thin
+FontName: OcodoMono-Regular
 FullName: OcodoMono
 FamilyName: OcodoMono
-Weight: Thin
+Weight: Regular
 Copyright: Copyright (c) 2023 Ocodo/Jason Milkins :, ocodo.github.io  All rights reserved.
-Version: 1.310;info.ocodo.fonts.ocodomono.v1.31
+Version: 1.320;info.ocodo.fonts.ocodomono.v1.32
 ItalicAngle: 0
 UnderlinePosition: -124
 UnderlineWidth: 25

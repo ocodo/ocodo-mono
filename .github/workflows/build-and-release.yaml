@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y fontforge python3-fontforge unzip curl
+          sudo apt-get install -y fontforge python3-fontforge unzip curl woff2 woff-tools
 
       - name: Extract version from SFD
         id: sfd_version
@@ -59,14 +59,19 @@ jobs:
         run: |
           fontforge --script ./fontpatcher/font-patcher --complete ./font/OcodoMono.ttf
 
-      - name: Move patched font into place
+      - name: Create woff2 variant
         run: |
-          mv OcodoMonoNerdFont-Regular.ttf ./font/OcodoMonoNerdFont-Regular.ttf
+          woff2_compress OcodoMonoNerdFont-Regular.ttf
+          woff2_compress OcodoMono.ttf
 
-      - name: Zip TTFs for release
+      - name: Move fonts into place
+        run: |
+          mv *ttf *woff2 font
+
+      - name: Zip Fonts for release
         run: |
           cd font
-          zip "../${{ steps.sfd_version.outputs.version }}.zip" *.ttf
+          zip "../${{ steps.sfd_version.outputs.version }}.zip" *.{ttf,woff2}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
