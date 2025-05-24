@@ -11,6 +11,8 @@ an ultrathin monospaced font based on DIN
 
 - **Inspired by:** FF DIN
 
+# [Download](https://github.com/ocodo/ocodo-mono/releases/latest))
+
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.5/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/">Creative Commons Attribution-NonCommercial 2.5 Generic License</a>.
 
 ![](images/dark-lipsum.png)
@@ -32,8 +34,3 @@ Serif reduction is the maxim.
 ![](images/light-lipsum.png)
 
 ![](images/type-demo.png)
-
-
-# Download
-
-[Download Directly...](font/OcodoMono.ttf)
