@@ -2,10 +2,10 @@
 
 a monospaced font based on DIN
 
-- **Weight:** 
-  - : thin 
-  
-- **Font Name:** 
+- **Weight:**
+  - : thin
+
+- **Font Name:**
   - OcodoMono (Nerd font version also in fonts folder)
 
 - **Inspired by:** FF DIN
@@ -20,6 +20,8 @@ Delicacy meets practical functionality. It shines when used in coding environmen
 
 Serif reduction is the maxim.
 
+> **Note:** On Firefox running Linux, font hinting is imperfect at smaller sizes, which can lead to noticeably reduced clarity.
+
 ## Type Demos
 
 ![](images/rusty.png)
@@ -29,8 +31,7 @@ Serif reduction is the maxim.
 ![](images/light-lipsum.png)
 
 ![](images/type-demo.png)
-  
-## Planned variant: ultrathin
+
 
 # Download
 
