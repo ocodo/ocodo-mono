@@ -5,8 +5,9 @@ an ultrathin monospaced font based on DIN
 - **Weight:**
   - : regular (appearance is ultrathin)
 
-- **Font Name:**
-  - OcodoMono (Nerd font version also in fonts folder)
+- **Font Name(s):**
+  - OcodoMono
+  - OcodoMonoNerdFont-Regular.ttf
 
 - **Inspired by:** FF DIN
 
