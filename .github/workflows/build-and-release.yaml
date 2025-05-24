@@ -48,7 +48,7 @@ jobs:
 
       - name: Build TTF from SFD
         run: |
-          fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("./font/OcodoMono.ttf")'
+          fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("OcodoMono.ttf")'
 
       - name: Download and unzip Nerd Font Patcher
         run: |
@@ -57,7 +57,7 @@ jobs:
 
       - name: Patch font with Nerd Fonts
         run: |
-          fontforge --script ./fontpatcher/font-patcher --complete ./font/OcodoMono.ttf \
+          fontforge --script ./fontpatcher/font-patcher --complete OcodoMono.ttf \
           | grep -E -v "[%╢█░╟\d]"
 
       - name: Create woff2 variant
