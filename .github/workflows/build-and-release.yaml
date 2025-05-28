@@ -6,17 +6,14 @@ on:
       - main
 
 jobs:
-  build-and-release:
+  version-check:
     runs-on: ubuntu-latest
-
+    outputs:
+      should_build: ${{ steps.check.outputs.new_version }}
+      version: ${{ steps.sfd_version.outputs.version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fontforge python3-fontforge unzip curl woff2 woff-tools
 
       - name: Extract version from SFD
         id: sfd_version
@@ -24,7 +21,7 @@ jobs:
           VERSION=$(grep 'Version:' ./font/OcodoMono.sfd | sed -n 's/.*info\.ocodo\.fonts\.//p')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Get latest release tag (if any)
+      - name: Get latest release tag
         id: latest_release
         continue-on-error: true
         run: |
@@ -35,16 +32,28 @@ jobs:
         id: check
         run: |
           if [ "${{ steps.latest_release.outputs.latest }}" = "none" ] || [ "${{ steps.sfd_version.outputs.version }}" != "${{ steps.latest_release.outputs.latest }}" ]; then
-            echo "same=false" >> "$GITHUB_OUTPUT"
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
           else
-            echo "same=true" >> "$GITHUB_OUTPUT"
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Exit if version is already released
-        if: steps.check.outputs.same == 'true'
+      - name: Skip message
+        if: steps.check.outputs.new_version == 'false'
         run: |
-          echo "No new version detected. Skipping build and release."
-          exit 0
+          echo "🟢 Version ${{ steps.sfd_version.outputs.version }} already released. Skipping build."
+
+  build-and-release:
+    needs: version-check
+    if: needs.version-check.outputs.should_build == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fontforge python3-fontforge unzip curl woff2 woff-tools
 
       - name: Build TTF from SFD
         run: |
@@ -67,21 +76,22 @@ jobs:
 
       - name: Move fonts into place
         run: |
-          mv *ttf *woff2 font
+          mkdir -p dist
+          mv *.ttf *.woff2 dist/
 
       - name: Zip Fonts for release
         run: |
-          cd font
-          zip "../${{ steps.sfd_version.outputs.version }}.zip" *.{ttf,woff2}
+          cd dist
+          zip "../OcodoMono-${{ needs.version-check.outputs.version }}.zip" ./*
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.sfd_version.outputs.version }}
-          tag_name: ${{ steps.sfd_version.outputs.version }}
+          name: "Ocodo Mono ${{ needs.version-check.outputs.version }}"
+          tag_name: ${{ needs.version-check.outputs.version }}
           files: |
-            ${{ steps.sfd_version.outputs.version }}.zip
-            font/*ttf
-            font/*woff2
+            OcodoMono-${{ needs.version-check.outputs.version }}.zip
+            dist/*.ttf
+            dist/*.woff2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
