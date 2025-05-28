@@ -22,17 +22,13 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Get latest release tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
         id: latest_release
-        continue-on-error: true
-        run: |
-          LATEST=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')
-
-          echo "latest=${LATEST:-none}" >> "$GITHUB_OUTPUT"
 
       - name: Determine if version is new
         id: check
         run: |
-          if [ "${{ steps.latest_release.outputs.latest }}" = "none" ] || [ "${{ steps.sfd_version.outputs.version }}" != "${{ steps.latest_release.outputs.latest }}" ]; then
+          if [ "${{ steps.latest_release.outputs.tag }}" = "none" ] || [ "${{ steps.sfd_version.outputs.version }}" != "${{ steps.latest_release.outputs.latest }}" ]; then
             echo "new_version=true" >> "$GITHUB_OUTPUT"
           else
             echo "new_version=false" >> "$GITHUB_OUTPUT"
