@@ -49,6 +49,7 @@ jobs:
       - name: Build TTF from SFD
         run: |
           fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("OcodoMono.ttf")'
+          fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("OcodoMono.woff2")'
 
       - name: Download and unzip Nerd Font Patcher
         run: |
@@ -63,7 +64,6 @@ jobs:
       - name: Create woff2 variant
         run: |
           woff2_compress OcodoMonoNerdFont-Regular.ttf
-          woff2_compress OcodoMono.ttf
 
       - name: Move fonts into place
         run: |
@@ -79,6 +79,6 @@ jobs:
         with:
           name: Release ${{ steps.sfd_version.outputs.version }}
           tag_name: ${{ steps.sfd_version.outputs.version }}
-          files: ${{ steps.sfd_version.outputs.version }}.zip
+          files: ${{ steps.sfd_version.outputs.version }}.zip,font/*ttf,font/*woff2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
