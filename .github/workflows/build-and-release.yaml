@@ -25,7 +25,8 @@ jobs:
         id: latest_release
         continue-on-error: true
         run: |
-          LATEST=$(curl -sI https://github.com/${{ github.repository }}/releases/latest | grep -i 'location:' | sed -E 's|.*/tag/([^[:space:]]+)|\1|')
+          LATEST=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')
+
           echo "latest=${LATEST:-none}" >> "$GITHUB_OUTPUT"
 
       - name: Determine if version is new
