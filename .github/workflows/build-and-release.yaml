@@ -1,9 +1,7 @@
 name: Build and Release Ocodo Mono
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   version-check:
