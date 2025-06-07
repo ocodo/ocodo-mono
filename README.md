@@ -6,8 +6,10 @@ an ultrathin monospaced font based on DIN
   - : regular (appears thin)
 
 - **Font Name(s):**
-  - OcodoMono
+  - OcodoMono-Regular.ttf
+  - OcodoMono-Bold.ttf
   - OcodoMonoNerdFont-Regular.ttf
+  - OcodoMonoNerdFont-Bold.ttf
 
 - **Inspired by:** FF DIN
 
