@@ -54,8 +54,11 @@ jobs:
 
       - name: Build TTF from SFD
         run: |
-          fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("OcodoMono.ttf")'
-          fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono.sfd"); font.generate("OcodoMono.woff2")'
+          for weight in Regular Bold; do
+            for font_type in ttf woff2; do
+              fontforge -c 'import fontforge as ff; font = ff.open("./font/OcodoMono $weight.sfd"); font.generate("OcodoMono-$weight.$font_type")'
+            done
+          done
 
       - name: Download and unzip Nerd Font Patcher
         run: |
@@ -64,12 +67,16 @@ jobs:
 
       - name: Patch font with Nerd Fonts
         run: |
-          fontforge --script ./fontpatcher/font-patcher --complete OcodoMono.ttf \
-          | grep -E -v "[%╢█░╟\d]"
+          for weight in Regular Bold; do
+            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf \
+              | grep -E -v "[%╢█░╟\d]"
+          done
 
       - name: Create woff2 variant
         run: |
-          woff2_compress OcodoMonoNerdFont-Regular.ttf
+          for weight in Regular Bold; do
+            woff2_compress OcodoMonoNerdFont-$weight.ttf
+          done
 
       - name: Move fonts into place
         run: |
@@ -88,13 +95,13 @@ jobs:
           tag_name: ${{ needs.version-check.outputs.version }}
           draft: false
           body: |
-            # OcodoMono / OcodoMono-Regular NerdFont
+            # OcodoMono / OcodoMono NerdFont
 
-            An ultrathin monospaced font based on DIN
+            Monospaced font-family based on DIN:
+            - Regular
+            - Bold
 
-            Good on macOS and Windows
-
-            (better type hinting in the works to improve Linux rendering)
+            Good on macOS, Linux and Windows
           files: |
             OcodoMono-${{ needs.version-check.outputs.version }}.zip
             dist/*.ttf
