@@ -22,13 +22,13 @@ OS2Version: 4
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1364125971
-ModificationTime: 1749298127
+ModificationTime: 1749304377
 PfmFamily: 17
 TTFWeight: 100
 TTFWidth: 5
 LineGap: 200
 VLineGap: 0
-Panose: 2 0 5 6 5 0 0 2 0 4
+Panose: 2 0 8 6 5 0 0 2 0 4
 OS2TypoAscent: 783
 OS2TypoAOffset: 0
 OS2TypoDescent: -217
