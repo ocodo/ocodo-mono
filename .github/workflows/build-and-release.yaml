@@ -82,6 +82,15 @@ jobs:
             fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.woff2 | grep -E -v "[%╢█░╟\d]"
           done
 
+      - name: Summary update
+        run: |
+          cat <<EOD | tee -a $GITHUB_STEP_SUMMARY
+          # OcodoMono Font Build Summary
+
+          ```sh
+          $(ls -lah *{ttf,woff2})
+          ```
+          EOD
       - name: Generate WOFF2
         run: |
           for weight in Thin Light; do
