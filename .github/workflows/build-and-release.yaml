@@ -2,6 +2,10 @@ name: Build and Release Ocodo Mono
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'font/*.sfd'
+      
 
 jobs:
   version-check:
@@ -74,9 +78,8 @@ jobs:
       - name: Patch font with Nerd Fonts
         run: |
           for weight in Thin Light; do
-            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf
-            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.woff2
-              | grep -E -v "[%╢█░╟\d]"
+            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf | grep -E -v "[%╢█░╟\d]"
+            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.woff2 | grep -E -v "[%╢█░╟\d]"
           done
 
       - name: Generate WOFF2
