@@ -16,8 +16,14 @@ jobs:
       - name: Extract version from SFD
         id: sfd_version
         run: |
-          VERSION=$(grep 'Version:' "./font/OcodoMono Regular.sfd" | sed -n 's/.*info\.ocodo\.fonts\.//p')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          VERSION_THIN=$(grep 'Version:' "./font/OcodoMono-Thin.sfd" | sed -n 's/.*info\.ocodo\.fonts\.//p')
+          VERSION_LIGHT=$(grep 'Version:' "./font/OcodoMono-Light.sfd" | sed -n 's/.*info\.ocodo\.fonts\.//p')
+
+          if [[ $VERSION_LIGHT != $VERSION_THIN ]]; then 
+            exit 1
+          fi
+
+          echo "version=$VERSION_THIN" >> "$GITHUB_OUTPUT"
 
       - name: Get latest release tag
         id: latest_release
@@ -54,9 +60,9 @@ jobs:
 
       - name: Build TTF from SFD
         run: |
-          for weight in Regular Bold; do
+          for weight in Thin Light; do
             for font_type in ttf woff2; do
-              fontforge -c "import fontforge as ff; font = ff.open('./font/OcodoMono $weight.sfd'); font.generate('OcodoMono-$weight.$font_type')"
+              fontforge -c "import fontforge as ff; font = ff.open('./font/OcodoMono-$weight.sfd'); font.generate('OcodoMono-$weight.$font_type')"
             done
           done
 
@@ -67,15 +73,20 @@ jobs:
 
       - name: Patch font with Nerd Fonts
         run: |
-          for weight in Regular Bold; do
-            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf \
+          for weight in Thin Light; do
+            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf
+            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.woff2
               | grep -E -v "[%╢█░╟\d]"
           done
 
-      - name: Create woff2 variant
+      - name: Generate WOFF2
         run: |
-          for weight in Regular Bold; do
-            woff2_compress OcodoMonoNerdFont-$weight.ttf
+          for weight in Thin Light; do
+            fontforge -c "
+            import fontforge as ff; 
+            font = ff.open('OcodoMonoNerdFont-$weight.ttf'); 
+            font.generate('OcodoMonoNerdFont-$weight.woff2')
+            "
           done
 
       - name: Move fonts into place
@@ -97,11 +108,17 @@ jobs:
           body: |
             # OcodoMono / OcodoMono NerdFont
 
-            Monospaced font-family based on DIN:
-            - Regular
-            - Bold
+            OcodoMono: A minimalist, monospaced font inspired by DIN, 
+            designed for terminal and coding use:
+            
+            ### Weights:
 
-            Good on macOS, Linux and Windows
+            - Thin - ultrathin, might be a bit too thin for some.
+            - Light - more regualr, still really thin.
+
+            > Good on macOS, Linux and Windows
+
+            > Available as ttf and woff2 
           files: |
             OcodoMono-${{ needs.version-check.outputs.version }}.zip
             dist/*.ttf
