@@ -85,11 +85,7 @@ jobs:
       - name: Generate WOFF2
         run: |
           for weight in Thin Light; do
-            fontforge -c "
-            import fontforge as ff; 
-            font = ff.open('OcodoMonoNerdFont-$weight.ttf'); 
-            font.generate('OcodoMonoNerdFont-$weight.woff2')
-            "
+            fontforge -c "import fontforge as ff;font = ff.open('OcodoMonoNerdFont-$weight.ttf');font.generate('OcodoMonoNerdFont-$weight.woff2')"
           done
 
       - name: Move fonts into place
