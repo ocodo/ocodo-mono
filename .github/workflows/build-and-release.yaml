@@ -120,17 +120,16 @@ jobs:
           draft: false
           body: |
             # OcodoMono / OcodoMono NerdFont
-
+            
             OcodoMono: A minimalist, monospaced font inspired by DIN, 
             designed for terminal and coding use:
             
             ### Weights:
-
-            - Thin - ultrathin, might be a bit too thin for some.
-            - Light - more regualr, still really thin.
-
+            
+            - Thin - ultrathin / hairline, too thin for some users.
+            - Light - regular duty.
+            
             > Good on macOS, Linux and Windows
-
             > Available as ttf and woff2 
           files: |
             OcodoMono-${{ needs.version-check.outputs.version }}.zip
