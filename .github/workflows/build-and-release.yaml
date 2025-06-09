@@ -78,7 +78,18 @@ jobs:
         run: |
           for weight in Thin Light; do
             fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf | grep -E -v "[%╢█░╟\d]"
-            fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.woff2 | grep -E -v "[%╢█░╟\d]"
+            fontforge --script ./bin/nerdfonts-fixup-ttfnames-weight.py \
+              --input OcodoMonoNerdFont-Regular.ttf \
+              --output OcodoMonoNerdFont-$weight.ttf \
+              --weight $weight
+
+            rm OcodoMonoNerdFont-Regular.ttf
+          done
+
+      - name: Generate WOFF2
+        run: |
+          for weight in Thin Light; do
+            fontforge -c "import fontforge as ff;font = ff.open('OcodoMonoNerdFont-$weight.ttf');font.generate('OcodoMonoNerdFont-$weight.woff2')"
           done
 
       - name: Summary update
@@ -90,11 +101,6 @@ jobs:
           $(ls -lah *{ttf,woff2})
           \`\`\`
           EOD
-      - name: Generate WOFF2
-        run: |
-          for weight in Thin Light; do
-            fontforge -c "import fontforge as ff;font = ff.open('OcodoMonoNerdFont-$weight.ttf');font.generate('OcodoMonoNerdFont-$weight.woff2')"
-          done
 
       - name: Move fonts into place
         run: |
