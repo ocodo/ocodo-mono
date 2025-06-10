@@ -19,20 +19,21 @@ jobs:
       - name: Extract version from SFD
         id: sfd_version
         run: |
-          VERSION_THIN=$(grep -i 'version-string = ' "ocodo-mono-light.conf" | sed -E -e 's/version-string = ([0-9.]+)/\1/')
-          VERSION_LIGHT=$(grep -i 'version-string = ' "ocodo-mono-thin.conf" | sed -E -e 's/version-string = ([0-9.]+)/\1/')
+          versions=(
+            $(grep -i 'version-string = ' "ocodo-mono-light.conf" | sed -E 's/.*= ([0-9.]+)/\1/')
+            $(grep -i 'version-string = ' "ocodo-mono-thin.conf"  | sed -E 's/.*= ([0-9.]+)/\1/')
+            $(grep 'Version:' "some-thin-font-file"  | sed -E 's/Version: ([0-9.]+)/\1/')
+          )
+          last=$(grep 'Version:' "some-light-font-file" | sed -E 's/Version: ([0-9.]+)/\1/')
 
-          VERSION_FONT_THIN=$(grep 'Version:' | sed -E -e 's/Version: ([0-9.]+)/\1/' )
-          VERSION_FONT_LIGHT=$(grep 'Version:' | sed -E -e 's/Version: ([0-9.]+)/\1/')
+          for v in "${versions[@]}"; do
+            [[ "$v" != "$last" ]] && {
+              echo "Version mismatch: ${versions[@]} $last"
+              exit 1
+            }
+          done
 
-          if [[ $VERSION_LIGHT != $VERSION_THIN \
-                || $VERSION_FONT_LIGHT != $VERSION_FONT_THIN \
-             ]]; then
-            echo "Inconsistent versions in light and thin fonts, update and make consistent"
-            exit 1
-          fi
-
-          echo "version=$VERSION_THIN" >> "$GITHUB_OUTPUT"
+          echo "version=$last" >> "$GITHUB_OUTPUT"
 
       - name: Get latest release tag
         id: latest_release
