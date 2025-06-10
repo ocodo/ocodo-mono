@@ -81,22 +81,13 @@ jobs:
           curl -L -o FontPatcher.zip https://raw.githubusercontent.com/ryanoasis/nerd-fonts/refs/heads/master/FontPatcher.zip
           unzip -o FontPatcher.zip -d ./fontpatcher
 
-      - name: Patch font with Nerd Fonts
+      - name: Patch font with Nerd Fonts and Generate Woff2 copies
         run: |
           for weight in Thin Light; do
             fontforge --script ./fontpatcher/font-patcher --complete OcodoMono-$weight.ttf | grep -E -v "[%╢█░╟\d]"
-            fontforge --script ./bin/nerdfonts-fixup-ttfnames-weight.py \
-              --input OcodoMonoNerdFont-Regular.ttf \
-              --output OcodoMonoNerdFont-$weight.ttf \
-              --weight $weight
-
-            rm OcodoMonoNerdFont-Regular.ttf
-          done
-
-      - name: Generate WOFF2
-        run: |
-          for weight in Thin Light; do
+            ls -l *ttf
             fontforge -c "import fontforge as ff;font = ff.open('OcodoMonoNerdFont-$weight.ttf');font.generate('OcodoMonoNerdFont-$weight.woff2')"
+            ls -l *woff2
           done
 
       - name: Summary update
