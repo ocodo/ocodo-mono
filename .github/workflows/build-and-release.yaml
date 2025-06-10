@@ -19,10 +19,16 @@ jobs:
       - name: Extract version from SFD
         id: sfd_version
         run: |
-          VERSION_THIN=$(grep 'Version:' "./font/OcodoMono-Thin.sfd" | sed -n 's/.*info\.ocodo\.fonts\.//p')
-          VERSION_LIGHT=$(grep 'Version:' "./font/OcodoMono-Light.sfd" | sed -n 's/.*info\.ocodo\.fonts\.//p')
+          VERSION_THIN=$(grep -i 'version-string = ' "ocodo-mono-light.conf" | sed -E -e 's/version-string = ([0-9.]+)/\1/')
+          VERSION_LIGHT=$(grep -i 'version-string = ' "ocodo-mono-thin.conf" | sed -E -e 's/version-string = ([0-9.]+)/\1/')
 
-          if [[ $VERSION_LIGHT != $VERSION_THIN ]]; then 
+          VERSION_FONT_THIN=$(grep 'Version:' | sed -E -e 's/Version: ([0-9.]+)/\1/' )
+          VERSION_FONT_LIGHT=$(grep 'Version:' | sed -E -e 's/Version: ([0-9.]+)/\1/')
+
+          if [[ $VERSION_LIGHT != $VERSION_THIN \
+                || $VERSION_FONT_LIGHT != $VERSION_FONT_THIN \
+             ]]; then
+            echo "Inconsistent versions in light and thin fonts, update and make consistent"
             exit 1
           fi
 
@@ -120,17 +126,17 @@ jobs:
           draft: false
           body: |
             # OcodoMono / OcodoMono NerdFont
-            
-            OcodoMono: A minimalist, monospaced font inspired by DIN, 
+
+            OcodoMono: A minimalist, monospaced font inspired by DIN,
             designed for terminal and coding use:
-            
+
             ### Weights:
-            
+
             - Thin - ultrathin / hairline, too thin for some users.
             - Light - regular duty.
-            
+
             > Good on macOS, Linux and Windows
-            > Available as ttf and woff2 
+            > Available as ttf and woff2
           files: |
             OcodoMono-${{ needs.version-check.outputs.version }}.zip
             dist/*.ttf
