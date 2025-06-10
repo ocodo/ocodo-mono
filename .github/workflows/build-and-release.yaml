@@ -22,9 +22,9 @@ jobs:
           versions=(
             $(grep -i 'version-string = ' "ocodo-mono-light.conf" | sed -E 's/.*= ([0-9.]+)/\1/')
             $(grep -i 'version-string = ' "ocodo-mono-thin.conf"  | sed -E 's/.*= ([0-9.]+)/\1/')
-            $(grep 'Version:' font/OcodoMono-Light.sfd  | sed -E 's/Version: ([0-9.]+)/\1/')
+            $(grep 'Version:' font/OcodoMono-Light.sfd  | sed -E 's/^Version: ([0-9.]+)/\1/')
           )
-          last=$(grep 'Version:' font/OcodoMono-Thin.sfd | sed -E 's/Version: ([0-9.]+)/\1/')
+          last=$(grep 'Version:' font/OcodoMono-Thin.sfd | sed -E 's/^Version: ([0-9.]+)/\1/')
 
           for v in "${versions[@]}"; do
             [[ "$v" != "$last" ]] && {
