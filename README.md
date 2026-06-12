@@ -1,4 +1,4 @@
-![](images/ocodo-mono.png)
+![](images/ocodo-mono-nederlander.png)
 
 # OcodoMono
 
@@ -14,6 +14,8 @@ an ultrathin monospaced font family based on DIN
   - OcodoMonoNerdFont-Light ttf/woff2
 
 - **Inspired by:** DIN / Deutsches Institut für Normung,
+
+![](images/ocodo-mono.png)
 
 ### [Download](https://github.com/ocodo/ocodo-mono/releases/latest)
 
