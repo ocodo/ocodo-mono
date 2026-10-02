@@ -14,9 +14,7 @@ gh release download \
   --dir package/fonts
 
 echo "Preparing package..."
-cp README.md package/
-cp dotzero.package.json package/package.json
-cp dotzero.font.css package/font.css
+cp README.md package.json font.css package/
 
 echo "Node: $(node --version)"
 echo "npm:  $(npm --version)"
