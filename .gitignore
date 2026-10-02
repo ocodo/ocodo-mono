@@ -1,5 +1,6 @@
 /.DS_Store
-
+package
+node_modules
 fontpatcher
 FontPatcher.zip
 *ttf
