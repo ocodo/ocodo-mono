@@ -1,0 +1,19 @@
+{
+  "name": "@ocodo/ocodo-mono-nerd",
+  "version": "1.4.1",
+  "description": "Ocodo Mono with Nerd Font icons",
+  "license": "OFL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ocodo/ocodo-mono.git"
+  },
+  "homepage": "https://github.com/ocodo/ocodo-mono",
+  "files": [
+    "fonts",
+    "font.css",
+    "README.md"
+  ],
+  "exports": {
+    "./font": "./font.css"
+  }
+}

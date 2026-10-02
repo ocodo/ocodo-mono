@@ -1,0 +1,15 @@
+@font-face {
+  font-family: OcodoMonoDotZeroNerdFont;
+  src: url("./fonts/OcodoMonoNerdFont-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: OcodoMonoDotZeroNerdFont;
+  src: url("./fonts/OcodoMonoNerdFont-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
